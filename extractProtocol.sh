@@ -3,7 +3,7 @@
 PROTOCOL="irc"
 
 touch $PROTOCOL.pcap
-ls | while read in; 
+ls *pcap* | while read in; 
 do 
   echo $in;
   tshark -r $in -w $in.$PROTOCOL $PROTOCOL;
