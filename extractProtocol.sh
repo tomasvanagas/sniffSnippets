@@ -1,13 +1,16 @@
 #!/bin/bash
 
-PROTOCOL="irc"
+#PROTOCOL="pop"
+PROTOCOL="http.request || http.response"
+SIMPLE_NAME="http"
 
-touch $PROTOCOL.pcap
+
+touch $SIMPLE_NAME.pcap
 ls *pcap* | while read in; 
-do 
+do
   echo $in;
-  tshark -r $in -w $in.$PROTOCOL $PROTOCOL;
-  mergecap -a -w $PROTOCOL.pcap.new $PROTOCOL.pcap $in.$PROTOCOL;
-  rm $in.$PROTOCOL;
-  mv $PROTOCOL.pcap.new $PROTOCOL.pcap;
+  tshark -r $in -w $in.$SIMPLE_NAME $PROTOCOL;
+  mergecap -a -w $SIMPLE_NAME.pcap.new $SIMPLE_NAME.pcap $in.$SIMPLE_NAME;
+  rm $in.$SIMPLE_NAME;
+  mv $SIMPLE_NAME.pcap.new $SIMPLE_NAME.pcap;
 done;
